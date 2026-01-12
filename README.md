@@ -1,6 +1,7 @@
 # MNEE Invoice Pay - Web3 Invoice Generator & Payment System
 
 App is live on [https://mneepay.bolt.host](https://mneepay.bolt.host)
+
 A beginner-friendly Web3 application that allows freelancers to create crypto invoices and clients to pay them using MNEE stablecoin via MetaMask.
 
 ## 🎯 Project Overview
