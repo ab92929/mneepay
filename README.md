@@ -1,5 +1,6 @@
 # MNEE Invoice Pay - Web3 Invoice Generator & Payment System
 
+App is live on [https://mneepay.bolt.host](https://mneepay.bolt.host)
 A beginner-friendly Web3 application that allows freelancers to create crypto invoices and clients to pay them using MNEE stablecoin via MetaMask.
 
 ## 🎯 Project Overview
@@ -53,16 +54,6 @@ npx http-server -p 8000
 Simply open `index.html` in your browser by double-clicking it.
 
 **Note:** Some browsers may restrict MetaMask access when opening files directly. Use Method 1 for best results.
-
-### Method 3: Deploy to Replit
-
-1. Create a new Repl on [Replit](https://replit.com)
-2. Choose "HTML, CSS, JS" template
-3. Upload all three files (index.html, style.css, script.js)
-4. Click "Run" button
-5. Share the URL with judges
-
-## 🎮 How to Demo for Judges
 
 ### Setup (Before Demo)
 
