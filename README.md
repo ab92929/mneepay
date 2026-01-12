@@ -366,3 +366,5 @@ Built for Web3 Hackathon as an educational MVP demonstrating:
 ---
 
 **Happy Hacking! 🚀**
+Developer: Abdul basit
+Email: abasit.dev@gmail.com
