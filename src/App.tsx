@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import { BrowserProvider, Contract, isAddress, parseUnits, JsonRpcSigner } from 'ethers';
 import { Wallet, FileText, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 const MNEE_TOKEN_ADDRESS = '0x0000000000000000000000000000000000000000';
@@ -21,8 +21,8 @@ interface Invoice {
 type StatusType = 'success' | 'error' | 'info' | 'warning';
 
 function App() {
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
-  const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner | null>(null);
+  const [provider, setProvider] = useState<BrowserProvider | null>(null);
+  const [signer, setSigner] = useState<JsonRpcSigner | null>(null);
   const [userAddress, setUserAddress] = useState<string>('');
   const [isConnecting, setIsConnecting] = useState(false);
   const [walletStatus, setWalletStatus] = useState<{ type: StatusType; message: string } | null>(null);
@@ -85,8 +85,8 @@ function App() {
       setWalletStatus({ type: 'info', message: 'Please check MetaMask and approve the connection request.' });
 
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-      const web3Signer = web3Provider.getSigner();
+      const web3Provider = new BrowserProvider(window.ethereum);
+      const web3Signer = await web3Provider.getSigner();
 
       setProvider(web3Provider);
       setSigner(web3Signer);
@@ -113,7 +113,7 @@ function App() {
       return;
     }
 
-    if (!ethers.utils.isAddress(recipientAddress)) {
+    if (!isAddress(recipientAddress)) {
       alert('Invalid recipient address. Must be a valid Ethereum address.');
       return;
     }
@@ -139,9 +139,9 @@ function App() {
       setIsPaying(true);
       setPaymentStatus({ type: 'info', message: 'Preparing transaction... Please confirm in MetaMask.' });
 
-      const mneeContract = new ethers.Contract(MNEE_TOKEN_ADDRESS, ERC20_ABI, signer);
+      const mneeContract = new Contract(MNEE_TOKEN_ADDRESS, ERC20_ABI, signer);
       const decimals = await mneeContract.decimals();
-      const amountInTokenUnits = ethers.utils.parseUnits(currentInvoice.amount.toString(), decimals);
+      const amountInTokenUnits = parseUnits(currentInvoice.amount.toString(), decimals);
 
       setPaymentStatus({ type: 'info', message: 'Transaction submitted! Waiting for confirmation...' });
       const tx = await mneeContract.transfer(currentInvoice.recipient, amountInTokenUnits);
